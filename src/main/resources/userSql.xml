@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.ch8_5.mapper.UserMapper">
+
+
+
+    <sql id="selectQuery">
+        select email as email,
+               name as name,
+               password as password,
+               birth_date as birthDate,
+               reg_date as regDate,
+               sns as sns
+        from user_info
+    </sql>
+
+
+    <select id="selectUser" parameterType="String" resultType="com.example.ch8_5.to.UserDto">
+        select email as email,
+               name as name,
+               password as password,
+               birth_date as birthDate,
+               reg_date as regDate,
+               sns as sns
+        from user_info
+        where email = #{email}
+
+
+    </select>
+
+
+
+
+
+</mapper>
