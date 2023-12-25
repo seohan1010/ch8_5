@@ -4,5 +4,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TestServiceImpl implements TestService{
-    public void test(){}
+    public void test()throws Exception{}
 }
