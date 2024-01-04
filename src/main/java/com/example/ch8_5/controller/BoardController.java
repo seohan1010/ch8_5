@@ -27,10 +27,8 @@ public class BoardController {
     @RequestMapping(value="/board",method = RequestMethod.POST)
     public void registerBoard(@RequestBody BoardDto boardDto){
 
-
-
+        System.out.println();
     }
-
 
 
 
