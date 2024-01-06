@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = {"http://localhost:3000", "*"})
 @RestController
-@RequestMapping(value="/auth")
+@RequestMapping(value = "/auth")
 public class AuthenticationController {
 
-@RequestMapping(value="/login")
-    public void login(@RequestBody UserDto userDto){
+    @RequestMapping(value = "/logout")
+    public void logOut() {
+    }
 
-}
+    @RequestMapping(value = "/login")
+    public void login(@RequestBody UserDto userDto) {
+
+    }
+
 
 }
