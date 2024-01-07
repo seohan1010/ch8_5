@@ -4,33 +4,47 @@
 <mapper namespace="com.example.ch8_5.mapper.UserMapper">
 
 
+    <insert id="insertUser" parameterType="userDto">
+
+        insert into user_info (email, name, password, birthdate, sns)
+        values (
+        #{email},
+        #{name},
+        #{password},
+        #{birthDate,jdbcType=DATE},
+        #{sns,jdbcType=VARCHAR}
+        );
+
+    </insert>
+
+
 
     <sql id="selectQuery">
         select email as email,
-               name as name,
-               password as password,
-               birth_date as birthDate,
-               reg_date as regDate,
-               sns as sns
+        name as name,
+        password as password,
+        birth_date as birthDate,
+        reg_date as regDate,
+        sns as sns
         from user_info
     </sql>
 
 
-    <select id="selectUser" parameterType="String" resultType="com.example.ch8_5.to.UserDto">
+    <select id="selectUser" parameterType="String" resultType="userDto">
         select email as email,
-               name as name,
-               password as password,
-               birth_date as birthDate,
-               reg_date as regDate,
-               sns as sns
+        name as name,
+        password as password,
+        birth_date as birthDate,
+        reg_date as regDate,
+        sns as sns
         from user_info
         where email = #{email}
-
-
     </select>
 
+    <update id="updateUser" parameterType="UserDto">
 
 
+    </update>
 
 
 </mapper>
