@@ -49,6 +49,8 @@ public class AuthenticationController {
         }
     }
 
+
+    // 유저의 정보가 유효한지 확인하는 로직
     private boolean isValid(UserDto user) {
 
         try {
