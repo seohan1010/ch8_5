@@ -19,29 +19,65 @@
 
 
 
-    <sql id="selectQuery">
-        select email as email,
-        name as name,
-        password as password,
-        birth_date as birthDate,
-        reg_date as regDate,
-        sns as sns
-        from user_info
-    </sql>
+
+<insert id="insertUser" parameterType="userDto">
+
+    insert into user_info(
+                          email,
+                          name,
+                          password,
+                          phone_number,
+                          birth_date,
+                          sns,
+                          gender
+                          )
+                values(
+                       #{email},
+                       #{name},
+                       #{password},
+                       #{phoneNumber,jdbcType=VARCHAR},
+                       #{birthDate,jdbcType=DATE},
+                       #{sns,jdbcType=VARCHAR},
+                       #{gender,jdbcType=VARCHAR}
+                      )
+
+
+</insert>
 
 
     <select id="selectUser" parameterType="String" resultType="userDto">
-        select email as email,
-        name as name,
-        password as password,
-        birth_date as birthDate,
-        reg_date as regDate,
-        sns as sns
+
+
+        select email         as email,
+               name          as name,
+               password      as password,
+               phone_number  as phoneNumber,
+               register_date as registerDate,
+               update_date   as updateDate,
+               birth_date    as birthDate,
+               sns           as sns,
+               gender        as gender
         from user_info
         where email = #{email}
+
     </select>
 
     <update id="updateUser" parameterType="UserDto">
+
+    <update id="updateUser" parameterType="userDto">
+
+    update user_info
+    set name = #{name,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+        update_date=#{updateDate,jdbcType = VARCHAR},
+        birth_date=#{birthDate,jdbcType = TIMESTAMP},
+        sns=#{sns,jdbcType=VARCHAR},
+        gender = #{gender,jdbcType=VARCHAR},
+        deleted_yn = #{deletedYn,jdbcType=VARCHAR}
+        where email = #{email}
+
+    </update>
 
 
     </update>

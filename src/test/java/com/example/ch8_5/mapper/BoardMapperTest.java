@@ -43,8 +43,7 @@ class BoardMapperTest {
         sc.setOffset(offset);
         sc.setPageSize(pageSize);
 
-       List<BoardDto> list = boardMapper.selectBoardList(sc);
-       list.forEach(System.out::println);
+
 
     }
 
