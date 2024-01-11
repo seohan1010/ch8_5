@@ -11,6 +11,7 @@ public class BoardDto {
     private String writeDate;
     private String updateDate;
     private String boardLike;
+    private Integer viewCnt;
     private String deletedYn;
 
 
@@ -28,6 +29,7 @@ public class BoardDto {
                 '}';
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,6 +41,14 @@ public class BoardDto {
     @Override
     public int hashCode() {
         return Objects.hash(bno, title, writer, content, writeDate, updateDate, boardLike, deletedYn);
+    }
+
+    public Integer getViewCnt() {
+        return viewCnt;
+    }
+
+    public void setViewCnt(Integer viewCnt) {
+        this.viewCnt = viewCnt;
     }
 
     public String getBno() {

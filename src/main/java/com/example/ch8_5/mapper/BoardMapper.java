@@ -12,6 +12,5 @@ public interface BoardMapper {
 
 public abstract int selectBoardCnt()throws Exception;
 
-public abstract List<BoardDto> selectBoardList(SearchCondition sc)throws Exception;
 
 }

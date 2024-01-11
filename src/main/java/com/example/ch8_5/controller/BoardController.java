@@ -23,7 +23,7 @@ public class BoardController {
         return list;
 
     }
-
+    //json
     @RequestMapping(value="/board",method = RequestMethod.POST)
     public void registerBoard(@RequestBody BoardDto boardDto){
 
