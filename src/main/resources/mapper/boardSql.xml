@@ -5,19 +5,10 @@
 
 
 <select id="selectBoardCnt" resultType="int">
-        select count(*) from board
-</select>
-
-<select id="selectBoardList" parameterType="com.example.ch8_5.to.SearchCondition" resultType="com.example.ch8_5.to.BoardDto" >
-
-    select *
-    from board
-    where deleted_yn ='N'
-    order by bno desc
-    limit #{offset}, #{pageSize}
-
 
 </select>
+
+
 
 
 

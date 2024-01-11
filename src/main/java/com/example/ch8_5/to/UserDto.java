@@ -5,25 +5,21 @@ import java.util.Objects;
 
 public class UserDto {
 
-   private String email;
-   private String name;
-   private String password;
-   private LocalDate birthDate;
-   private LocalDate regDate;
-   private String sns;
+    private String email;
+    private String name;
+    private String password;
+    private String phoneNumber;
+    private String registerDate;
+    private String updateDate;
+    private String birthDate;
+    private String sns;
+    private String gender;
+    private String deletedYn;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserDto userDto = (UserDto) o;
-        return Objects.equals(email, userDto.email) && Objects.equals(name, userDto.name) && Objects.equals(password, userDto.password);
+
+    public UserDto() {
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(email, name, password);
-    }
 
     @Override
     public String toString() {
@@ -31,10 +27,27 @@ public class UserDto {
                 "email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", birthDate=" + birthDate +
-                ", regDate=" + regDate +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", registerDate='" + registerDate + '\'' +
+                ", updateDate='" + updateDate + '\'' +
+                ", birthDate='" + birthDate + '\'' +
                 ", sns='" + sns + '\'' +
+                ", gender='" + gender + '\'' +
+                ", deletedYn='" + deletedYn + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDto userDto = (UserDto) o;
+        return Objects.equals(email, userDto.email) && Objects.equals(name, userDto.name) && Objects.equals(password, userDto.password) && Objects.equals(phoneNumber, userDto.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, name, password, phoneNumber);
     }
 
     public String getEmail() {
@@ -61,20 +74,36 @@ public class UserDto {
         this.password = password;
     }
 
-    public LocalDate getBirthDate() {
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(String registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public LocalDate getRegDate() {
-        return regDate;
-    }
-
-    public void setRegDate(LocalDate regDate) {
-        this.regDate = regDate;
     }
 
     public String getSns() {
@@ -83,5 +112,21 @@ public class UserDto {
 
     public void setSns(String sns) {
         this.sns = sns;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getDeletedYn() {
+        return deletedYn;
+    }
+
+    public void setDeletedYn(String deletedYn) {
+        this.deletedYn = deletedYn;
     }
 }
