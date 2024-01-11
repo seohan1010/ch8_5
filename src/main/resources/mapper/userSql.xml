@@ -4,6 +4,21 @@
 <mapper namespace="com.example.ch8_5.mapper.UserMapper">
 
 
+    <insert id="insertUser" parameterType="userDto">
+
+        insert into user_info (email, name, password, birthdate, sns)
+        values (
+        #{email},
+        #{name},
+        #{password},
+        #{birthDate,jdbcType=DATE},
+        #{sns,jdbcType=VARCHAR}
+        );
+
+    </insert>
+
+
+
 
 <insert id="insertUser" parameterType="userDto">
 
@@ -32,6 +47,7 @@
 
     <select id="selectUser" parameterType="String" resultType="userDto">
 
+
         select email         as email,
                name          as name,
                password      as password,
@@ -46,6 +62,7 @@
 
     </select>
 
+    <update id="updateUser" parameterType="UserDto">
 
     <update id="updateUser" parameterType="userDto">
 
@@ -63,6 +80,7 @@
     </update>
 
 
+    </update>
 
 
 </mapper>

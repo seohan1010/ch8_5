@@ -14,9 +14,12 @@ class PageHandlerTest {
 
     @Test
     public void test() {
-        PageHandler ph = new PageHandler(21, 265);
+        PageHandler ph = new PageHandler(22, 265);
         ph.print();
         System.out.println("totalPage is : " + ph.totalPage);
+
+        System.out.println("ph.beginPage = " + ph.beginPage);
+        System.out.println("ph.endPage = " + ph.endPage);
         assertTrue(ph.beginPage == 21);
         assertTrue(ph.endPage == 27);
 
