@@ -39,6 +39,7 @@
                gender        as gender
         from user_info
         where email = #{email}
+        and deleted_yn ='N'
 
     </select>
 
@@ -58,5 +59,12 @@
 
     </update>
 
+    <update id="deleteUser" parameterType="string">
+
+        update user_info
+        set deleted_yn = 'Y'
+        where email = #{email}
+
+    </update>
 
 </mapper>

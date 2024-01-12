@@ -24,13 +24,12 @@ class UserMapperTest {
     }
 
 
-
     @Test
     @DisplayName("insert user test")
     public void insertTest() {
 
-        String email = "aaa@aaa.com";
-        String name = "asdf";
+        String email = "ccc@ccc.com";
+        String name = "adsf3";
         String password = "11111111";
         String phoneNumber = "010-1234-1234";
 
@@ -39,9 +38,7 @@ class UserMapperTest {
         user.setName(name);
         user.setPassword(password);
         user.setPhoneNumber(phoneNumber);
-//        user.setBirthDate();
-//        user.setSns();
-//        user.setGender();
+
 
         try {
             userMapper.insertUser(user);
@@ -58,11 +55,11 @@ class UserMapperTest {
 
     @Test
     @DisplayName("this is for me")
-    public void selectTest(){
+    public void selectTest() {
         String email = "aaa@aaa.com";
 
         try {
-           UserDto user = userMapper.selectUser(email);
+            UserDto user = userMapper.selectUser(email);
             System.out.println("<<<<<<<<< user = " + user);
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,7 +69,7 @@ class UserMapperTest {
     }
 
     @Test
-    public void updateTest(){
+    public void updateTest() {
 
         String email = "test";
         String name = "modified test";
@@ -94,6 +91,22 @@ class UserMapperTest {
 
     }
 
+
+    @Test
+    @DisplayName("deleteUser Test")
+    public void deleteUser() {
+
+        String email = "bbb@bbb.com";
+
+        try {
+            userMapper.deleteUser(email);
+            UserDto userDto = userMapper.selectUser(email);
+            assertNull(userDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 }
