@@ -16,9 +16,7 @@ public class BoardController {
     @RequestMapping(value="/board",method= RequestMethod.GET)
     public List<BoardDto> retrieveBoardList(){
         List<BoardDto> list = new ArrayList<>();
-        list.add(new BoardDto());
-        list.add(new BoardDto());
-        list.add(new BoardDto());
+
 
         return list;
 
@@ -27,7 +25,7 @@ public class BoardController {
     @RequestMapping(value="/board",method = RequestMethod.POST)
     public void registerBoard(@RequestBody BoardDto boardDto){
 
-        System.out.println();
+
     }
 
 
