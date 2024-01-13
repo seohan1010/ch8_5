@@ -6,43 +6,23 @@
 
     <insert id="insertUser" parameterType="userDto">
 
-        insert into user_info (email, name, password, birthdate, sns)
-        values (
-        #{email},
-        #{name},
-        #{password},
-        #{birthDate,jdbcType=DATE},
-        #{sns,jdbcType=VARCHAR}
-        );
+        insert into user_info(email,
+                              name,
+                              password,
+                              phone_number,
+                              birth_date,
+                              sns,
+                              gender)
+        values (#{email},
+                #{name},
+                #{password},
+                #{phoneNumber,jdbcType=VARCHAR},
+                #{birthDate,jdbcType=DATE},
+                #{sns,jdbcType=VARCHAR},
+                #{gender,jdbcType=VARCHAR})
+
 
     </insert>
-
-
-
-
-<insert id="insertUser" parameterType="userDto">
-
-    insert into user_info(
-                          email,
-                          name,
-                          password,
-                          phone_number,
-                          birth_date,
-                          sns,
-                          gender
-                          )
-                values(
-                       #{email},
-                       #{name},
-                       #{password},
-                       #{phoneNumber,jdbcType=VARCHAR},
-                       #{birthDate,jdbcType=DATE},
-                       #{sns,jdbcType=VARCHAR},
-                       #{gender,jdbcType=VARCHAR}
-                      )
-
-
-</insert>
 
 
     <select id="selectUser" parameterType="String" resultType="userDto">
@@ -59,28 +39,32 @@
                gender        as gender
         from user_info
         where email = #{email}
+        and deleted_yn ='N'
 
     </select>
 
-    <update id="updateUser" parameterType="UserDto">
 
     <update id="updateUser" parameterType="userDto">
 
-    update user_info
-    set name = #{name,jdbcType=VARCHAR},
-        password = #{password,jdbcType=VARCHAR},
-        phone_number = #{phoneNumber,jdbcType=VARCHAR},
-        update_date=#{updateDate,jdbcType = VARCHAR},
-        birth_date=#{birthDate,jdbcType = TIMESTAMP},
-        sns=#{sns,jdbcType=VARCHAR},
-        gender = #{gender,jdbcType=VARCHAR},
-        deleted_yn = #{deletedYn,jdbcType=VARCHAR}
+        update user_info
+        set name         = #{name,jdbcType=VARCHAR},
+            password     = #{password,jdbcType=VARCHAR},
+            phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            update_date=#{updateDate,jdbcType = VARCHAR},
+            birth_date=#{birthDate,jdbcType = TIMESTAMP},
+            sns=#{sns,jdbcType=VARCHAR},
+            gender       = #{gender,jdbcType=VARCHAR},
+            deleted_yn   = #{deletedYn,jdbcType=VARCHAR}
         where email = #{email}
 
     </update>
 
+    <update id="deleteUser" parameterType="string">
+
+        update user_info
+        set deleted_yn = 'Y'
+        where email = #{email}
 
     </update>
-
 
 </mapper>

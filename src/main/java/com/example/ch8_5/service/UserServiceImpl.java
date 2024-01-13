@@ -17,8 +17,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void registerUser(UserDto userDto) throws Exception {
+        userMapper.insertUser(userDto);
+    }
+
+    @Override
     public UserDto retrieveUser(String email)throws Exception{
         return userMapper.selectUser(email);
     }
+
+    @Override
+    public void modifyUser(UserDto userDto) throws Exception {
+        userMapper.updateUser(userDto);
+
+    }
+
+    @Override
+    public void removeUser(String email) throws Exception {
+        userMapper.deleteUser(email);
+    }
+
 
 }

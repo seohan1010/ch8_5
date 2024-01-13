@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class BoardDto {
 
-    private String bno;
+    private Long bno;
     private String title;
     private String writer;
     private String content;
     private String writeDate;
     private String updateDate;
-    private String boardLike;
-    private Integer viewCnt;
+    private Long boardLike;
+    private Long viewCnt;
     private String deletedYn;
 
 
@@ -35,27 +35,23 @@ public class BoardDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BoardDto boardDto = (BoardDto) o;
-        return Objects.equals(bno, boardDto.bno) && Objects.equals(title, boardDto.title) && Objects.equals(writer, boardDto.writer) && Objects.equals(content, boardDto.content) && Objects.equals(writeDate, boardDto.writeDate) && Objects.equals(updateDate, boardDto.updateDate) && Objects.equals(boardLike, boardDto.boardLike) && Objects.equals(deletedYn, boardDto.deletedYn);
+        return Objects.equals(bno, boardDto.bno) && Objects.equals(title, boardDto.title) && Objects.equals(writer, boardDto.writer) && Objects.equals(content, boardDto.content) && Objects.equals(writeDate, boardDto.writeDate) && Objects.equals(updateDate, boardDto.updateDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bno, title, writer, content, writeDate, updateDate, boardLike, deletedYn);
+        return Objects.hash(bno, title, writer, content, writeDate, updateDate);
     }
 
-    public Integer getViewCnt() {
-        return viewCnt;
+    public void setBoardLike(Long boardLike) {
+        this.boardLike = boardLike;
     }
 
-    public void setViewCnt(Integer viewCnt) {
-        this.viewCnt = viewCnt;
-    }
-
-    public String getBno() {
+    public Long getBno() {
         return bno;
     }
 
-    public void setBno(String bno) {
+    public void setBno(Long bno) {
         this.bno = bno;
     }
 
@@ -99,12 +95,12 @@ public class BoardDto {
         this.updateDate = updateDate;
     }
 
-    public String getBoardLike() {
-        return boardLike;
+    public Long getViewCnt() {
+        return viewCnt;
     }
 
-    public void setBoardLike(String boardLike) {
-        this.boardLike = boardLike;
+    public void setViewCnt(Long viewCnt) {
+        this.viewCnt = viewCnt;
     }
 
     public String getDeletedYn() {
