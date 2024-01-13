@@ -2,31 +2,60 @@ package com.example.ch8_5.to;
 
 public class SearchCondition {
 
-    Integer offset;
-    Integer PageSize;
+    private Integer page;
+    private Integer pageSize;
 
+    private String keyword;
 
-    @Override
-    public String toString() {
-        return "SearchCondition{" +
-                "offset=" + offset +
-                ", PageSize=" + PageSize +
-                '}';
+    private String option;
+
+    public SearchCondition() {
     }
 
+    public SearchCondition(Integer page, Integer pageSize, String keyword, String option) {
+        this.page = page;
+        this.pageSize = pageSize;
+        this.keyword = keyword;
+        this.option = option;
+    }
+
+
+    // offset은 page를 계산한 결과를 넘겨주면은 된다.
     public Integer getOffset() {
-        return offset;
+        return (page - 1) * pageSize;
     }
 
-    public void setOffset(Integer offset) {
-        this.offset = offset;
+
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
     public Integer getPageSize() {
-        return PageSize;
+        return pageSize;
     }
 
     public void setPageSize(Integer pageSize) {
-        PageSize = pageSize;
+        this.pageSize = pageSize;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    public String getOption() {
+        return option;
+    }
+
+    public void setOption(String option) {
+        this.option = option;
     }
 }
