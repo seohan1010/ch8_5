@@ -13,7 +13,9 @@ public interface BoardMapper {
 
     public abstract void insertBoard(BoardDto boardDto) throws Exception;
 
+
     public abstract Long selectBoardCnt() throws Exception;
+    public abstract Long selectBoardCntBySearchCondition(SearchCondition sc)throws Exception;
 
     public abstract BoardDto selectBoardDetail(Long bno) throws Exception;
 

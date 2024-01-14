@@ -6,9 +6,11 @@ import com.example.ch8_5.to.SearchCondition;
 import java.util.List;
 
 public interface BoardService {
-    public abstract void insertBoard(BoardDto boardDto) throws Exception;
+    public abstract void registerBoard(BoardDto boardDto) throws Exception;
 
     public abstract Long selectBoardCnt() throws Exception;
+
+    public abstract Long selectBoardCntBySearchCondition(SearchCondition searchCondition)throws Exception;
 
     public abstract BoardDto selectBoardDetail(Long bno) throws Exception;
 
@@ -16,9 +18,9 @@ public interface BoardService {
 
     public abstract List<BoardDto> selectBoardListBySearchCondition(SearchCondition sc) throws Exception;
 
-    public abstract void updateBoardDetail(BoardDto boardDto) throws Exception;
+    public abstract void modifyBoardDetail(BoardDto boardDto) throws Exception;
 
-    public abstract void deleteBoardDetail(Long bno) throws Exception;
+    public abstract void removeBoardDetail(Long bno) throws Exception;
 
     public abstract void deleteBoard() throws Exception;
 }

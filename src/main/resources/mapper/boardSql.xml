@@ -72,14 +72,14 @@
                 or content like concat('%',#{keyword},'%') )
             </otherwise>
         </choose>
-        order by bno desc
+
     </sql>
 
     <!--    테스트 성공 -->
     <select id="selectBoardList" parameterType="searchCondition" resultType="boardDto">
 
-
         <include refid="select"/>
+        order by bno desc
         limit #{offset},#{pageSize}
 
     </select>
@@ -90,8 +90,8 @@
 
         <include refid="select"/>
         <include refid="searchCondition"/>
+        order by bno desc
         limit #{offset},#{pageSize}
-
     </select>
 
 
@@ -135,5 +135,13 @@
         from board
     </select>
 
+    <select id="selectBoardCntBySearchCondition" parameterType="searchCondition" resultType="long">
+
+        select count(*) from board
+        where deleted_yn ='N'
+        <include refid="searchCondition"/>
+
+
+    </select>
 
 </mapper>
