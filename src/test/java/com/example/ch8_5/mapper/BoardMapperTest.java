@@ -93,7 +93,7 @@ class BoardMapperTest {
     @Test
     public void selectBoardList()throws Exception{
 
-        SearchCondition  sc = new SearchCondition(1,10,"1","");
+        SearchCondition  sc = new SearchCondition(3,10,"","");
 
         List<BoardDto> list = boardMapper.selectBoardList(sc);
         assertNotNull(list);

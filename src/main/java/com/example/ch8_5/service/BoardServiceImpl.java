@@ -20,13 +20,18 @@ public class BoardServiceImpl implements BoardService {
 
 
     @Override
-    public void insertBoard(BoardDto boardDto) throws Exception {
+    public void registerBoard(BoardDto boardDto) throws Exception {
         boardMapper.insertBoard(boardDto);
     }
 
     @Override
     public Long selectBoardCnt() throws Exception {
         return boardMapper.selectBoardCnt();
+    }
+
+    @Override
+    public Long selectBoardCntBySearchCondition(SearchCondition searchCondition) throws Exception {
+        return boardMapper.selectBoardCntBySearchCondition(searchCondition);
     }
 
     @Override
@@ -45,12 +50,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void updateBoardDetail(BoardDto boardDto) throws Exception {
+    public void modifyBoardDetail(BoardDto boardDto) throws Exception {
         boardMapper.updateBoardDetail(boardDto);
     }
 
     @Override
-    public void deleteBoardDetail(Long bno) throws Exception {
+    public void removeBoardDetail(Long bno) throws Exception {
         boardMapper.deleteBoardDetail(bno);
     }
 
