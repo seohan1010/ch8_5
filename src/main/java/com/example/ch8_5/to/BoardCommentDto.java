@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class BoardCommentDto {
 
-    private String cno;
-    private String pbno;
+    private Long cno;
+    private Long pbno;
     private String commenter;
     private String comment;
     private String registerDate;
@@ -44,19 +44,19 @@ public class BoardCommentDto {
         return Objects.hash(cno, pbno, commenter);
     }
 
-    public String getCno() {
+    public Long getCno() {
         return cno;
     }
 
-    public void setCno(String cno) {
+    public void setCno(Long cno) {
         this.cno = cno;
     }
 
-    public String getPbno() {
+    public Long getPbno() {
         return pbno;
     }
 
-    public void setPbno(String pbno) {
+    public void setPbno(Long pbno) {
         this.pbno = pbno;
     }
 
