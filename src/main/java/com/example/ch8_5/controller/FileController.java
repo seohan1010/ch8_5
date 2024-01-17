@@ -1,6 +1,8 @@
 package com.example.ch8_5.controller;
 
-import org.apache.coyote.Response;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -17,9 +19,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// 이번 컨트롤러 부터는 logger를 사용해서 로깅을 하도록 하겠습니다.
+
 @RestController
-@RequestMapping(value="/file")
+@RequestMapping(value = "/file")
 public class FileController {
+
+   private Logger logger = LoggerFactory.getLogger(getClass());
 
     // application.properties 파일에 저장될 경로를 작성해 두었다.
     @Value("${spring.servlet.multipart.location}")
@@ -31,17 +38,17 @@ public class FileController {
      */
 
 
-    @RequestMapping(value="/delete",method=RequestMethod.DELETE)
-    public ResponseEntity<String> deleteFile(@RequestParam("filename") String filename){
-
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteFile(@RequestParam("filename") String filename) {
+        logger.info("filename : {}",filename);
         System.out.println("filename = " + filename);
 
-        File file = new File(filepath+filename);
+        File file = new File(filepath + filename);
 
-            // 파일이 잘 삭제가 되었는지의 여부에 따라서 분기를 해준다.
-        if(file.delete()==true){
+        // 파일이 잘 삭제가 되었는지의 여부에 따라서 분기를 해준다.
+        if (file.delete() == true) {
             return new ResponseEntity<>(HttpStatus.OK);
-        }else{
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -50,41 +57,44 @@ public class FileController {
     // 파일이 저장되는 디렉토리에 같은 이름의 파일이 있는지 확인하고
     // 같은 이름의 파일이 있으면은 새롭게 저장하는 파일의 이름을
     // 변경한 다음에 저장한다.
-    @RequestMapping(value="/upload",method= RequestMethod.POST)
-    public ResponseEntity<List<String>> uploadFile(MultipartFile[] files){
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public ResponseEntity<List<String>> uploadFile(MultipartFile[] files) {
         List<String> list = new ArrayList<>();
 
 
 
         try {
-            for(MultipartFile file: files){
-                System.out.println("file.getOriginalFilename() = " + file.getOriginalFilename());
-                System.out.println("file.getSize() = " + file.getSize());
+            for (MultipartFile file : files) {
 
-                File upFile = new File(filepath,file.getOriginalFilename());
-                file.transferTo(upFile); // 업로드된 파일을 지정된 경로에 저장
-                list.add(file.getOriginalFilename());
+                File upFile = new File(filepath, file.getOriginalFilename());
+                    logger.info("filename : {} ",file.getOriginalFilename());
+                    logger.info("fileSize : {} ",file.getSize());
+                if (!upFile.exists()) {
+                    file.transferTo(upFile); // 업로드된 파일을 지정된 경로에 저장
+                    list.add(file.getOriginalFilename());
+                }
+
             }
-            return new ResponseEntity<>(list,HttpStatus.OK);
+            return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(list,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
         }
 
     }
 
 
-    @RequestMapping(value="/download",method=RequestMethod.GET,produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<Resource> downloadFile(String filename){
+    @RequestMapping(value = "/download", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<Resource> downloadFile(String filename) {
 
         Resource resource = null;
         try {
             System.out.println("filename = " + filename);
-            resource = new FileSystemResource(filepath+filename);
-        return new ResponseEntity<>(resource,HttpStatus.OK);
+            resource = new FileSystemResource(filepath + filename);
+            return new ResponseEntity<>(resource, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(resource,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(resource, HttpStatus.BAD_REQUEST);
         }
 
 
