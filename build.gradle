@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
     // 기본설정 관련
+    // starter-web에 jackson이 있는거 같다.
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 

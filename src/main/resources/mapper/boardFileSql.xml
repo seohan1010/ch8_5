@@ -20,7 +20,8 @@
 
         <delete id="deleteBoardFile" parameterType="long">
 
-            delete from board_file
+            update board_file
+            set deleted_yn = 'Y'
             where file_no = #{fileNo}
 
         </delete>
