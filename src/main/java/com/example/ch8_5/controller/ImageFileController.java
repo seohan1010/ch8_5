@@ -31,6 +31,9 @@ public class ImageFileController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+
+    // 업로드할 디렉토리에 중복되는 이름이 있으면은 새로 업로드할 파일의 이름을
+    // 새로 생성해서 업로드 한다.
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public ResponseEntity<HttpStatus> uploadImage(MultipartFile[] files) {
 
