@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -32,29 +33,34 @@ public class ImageFileController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
 
+    public void findFiles(File file) {
+        int numberOfFiles = 0;
+        int numberOfDirectory = 0;
+
+
+
+        if (file.isFile()) {
+            System.out.println("directory.getAbsolutePath() = " + file.getAbsolutePath());
+            numberOfFiles++;
+
+        } else {
+            numberOfDirectory++;
+            File[] filese = file.listFiles();
+            for (File file1 : filese) {
+                // 재귀 호출을 하려는거 같다.
+                findFiles(file1);
+            }
+        }
+    }
+
     // 업로드할 디렉토리에 중복되는 이름이 있으면은 새로 업로드할 파일의 이름을
     // 새로 생성해서 업로드 한다.
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public ResponseEntity<HttpStatus> uploadImage(MultipartFile[] files) {
+    public ResponseEntity<HttpStatus> uploadImage(MultipartFile[] files, @RequestParam("bno") Long bno) {
 
-        String filename = "singapore.jpg";
-
+        System.out.println("<<<<<<<<<<< bno = " + bno);
         File directory = new File(filepath);
-
-
-        for (MultipartFile file : files) {
-
-
-            FilenameFilter filter = (dir, name) ->
-                    !name.equals(file.getOriginalFilename());
-
-
-            String[] arr = directory.list(filter);
-            System.out.println("arr = " + Arrays.toString(arr));
-            System.out.println("file.getContentType() = " + file.getContentType());
-
-        }
-
+        findFiles(directory);
 
         return new ResponseEntity<>(HttpStatus.OK);
 
