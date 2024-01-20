@@ -5,7 +5,7 @@ import java.util.Objects;
 public class ImgFileDto {
 
     private String fileNo;
-    private String bno;
+    private Long bno;
     private String imgName;
     private String imgPath;
     private String deletedYn;
@@ -46,11 +46,11 @@ public class ImgFileDto {
         this.fileNo = fileNo;
     }
 
-    public String getBno() {
+    public Long getBno() {
         return bno;
     }
 
-    public void setBno(String bno) {
+    public void setBno(Long bno) {
         this.bno = bno;
     }
 
