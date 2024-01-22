@@ -87,32 +87,15 @@ public class BoardFileController {
                 logger.info("<<<<<<<<<  filename : {} ", file.getOriginalFilename());
                 logger.info("<<<<<<<<<  fileSize : {} ", file.getSize());
                 logger.info("<<<<<<<<< filetype : {}", file.getContentType());
-                // 해당 파일이름이 존재하지 않으면은 파일을 업로드
-                if (!upFile.exists()) {
-                    file.transferTo(upFile); // 업로드된 파일을 지정된 경로에 저장
-                    list.add(file.getOriginalFilename());
-                    boardFileDto.setBno(bno);
-                    boardFileDto.setFileName(file.getOriginalFilename());
-                    boardFileDto.setFilePath(filepath);
-//                    boardFileMapper.insetBoardFile(boardFileDto);
+                File data = new File(filepath,file.getOriginalFilename());
 
-                    // 해당 파일이름이 존재하면은 새로 업로드할 파일의 이름을 새로 생성한
-                    // 다음에 파일을 업로드
-                } else if (upFile.exists()) {
-                    // 나중에는 이름을 "."를 구분자로 나눈다음에 파일명을 변경한후 다시 합치는 로직을
-                    // 적용해보자.
-                    File newFile = new File(filepath, file.getOriginalFilename());
-
-
-                    newFile.renameTo(new File(filepath + Instant.now() + file.getOriginalFilename()));
-                    logger.info("<<<<<<< newFile.getName() : {}", newFile.getName());
-
-                    file.transferTo(newFile);
-                    boardFileDto.setBno(bno);
-                    boardFileDto.setFileName(newFile.getName());
-                    boardFileDto.setFilePath(filepath);
-//                    boardFileMapper.insetBoardFile(boardFileDto);
-
+                if(data.exists()){
+                    System.out.println("data.getName() = " + data.getName());
+                    System.out.println("\"file already exist\" = " + "file already exist");
+                    File newFile = new File(filepath,"복사본"+file.getOriginalFilename());
+                    data.renameTo(newFile);
+                }else{
+                    file.transferTo(upFile);
                 }
 
             }
