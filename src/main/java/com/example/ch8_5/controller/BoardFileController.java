@@ -3,6 +3,7 @@ package com.example.ch8_5.controller;
 
 import com.example.ch8_5.mapper.BoardFileMapper;
 import com.example.ch8_5.to.BoardFileDto;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,18 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 
 // 이번 컨트롤러 부터는 logger를 사용해서 로깅을 하도록 하겠습니다.
@@ -74,9 +79,17 @@ public class BoardFileController {
     // 파일이 저장되는 디렉토리에 같은 이름의 파일이 있는지 확인하고
     // 같은 이름의 파일이 있으면은 새롭게 저장하는 파일의 이름을
     // 변경한 다음에 저장한다.
+    // 같은 이름의 파일이 있으면은 해당 파일의 이름에 "복사본 이라는 단어가 있는지 확인"
+    // 복사본 이라는 단어가 있으면은 "복사본1" 이렇게 뒤에 숫자가 붙어 있는 지를 확인하고
+    // 숫자가 붙어 있으면은 모든 이름들을 TreeSet에 넣어서 가장 마지막 이름을 가져와서
+    // 마지막 이름의 숫자에 1을 더한 이름을 새로 저장하는 파일의 이름으로 설정한다.
+    // ---> 이거를 메서드를 생성해서 분기 처리를 해주어야 겠다.
+    //      개발 진전이 없다.
+
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public ResponseEntity<List<String>> uploadFile(MultipartFile[] files, @RequestParam("bno") String bno) {
-        List<String> list = new ArrayList<>();
+        List<String> list = new ArrayList<>(); // 저장된 파일의 이름을 저장할 List
+        TreeSet set = new TreeSet();
 
         BoardFileDto boardFileDto = new BoardFileDto();
 
@@ -87,14 +100,35 @@ public class BoardFileController {
                 logger.info("<<<<<<<<<  filename : {} ", file.getOriginalFilename());
                 logger.info("<<<<<<<<<  fileSize : {} ", file.getSize());
                 logger.info("<<<<<<<<< filetype : {}", file.getContentType());
-                File data = new File(filepath,file.getOriginalFilename());
 
-                if(data.exists()){
-                    System.out.println("data.getName() = " + data.getName());
+
+                if (upFile.exists()) {
+                    System.out.println("data.getName() = " + upFile.getName());
                     System.out.println("\"file already exist\" = " + "file already exist");
-                    File newFile = new File(filepath,"복사본"+file.getOriginalFilename());
-                    data.renameTo(newFile);
-                }else{
+                    // 1. 해당하는 이름의 파일 혹은 해당하는 이름의 파일의 복사본이 존재하는지를 확인
+                    // 2. 복사본이 존재하면 해당하는 파일명의 복사본파일들의 이름을 TreeSet에 저장
+                    // 3. TreeSet에 저장된 마지막 이름을 가지고 와서 복사본 뒤에 붙어있는 숫자에
+                    //    1을 더한 이름을 새로 업로드하는 파일의 이름으로 할당.
+                    File newFile = new File(filepath, "복사본" + file.getOriginalFilename());
+                    FileSystemUtils.copyRecursively(upFile, newFile);
+                    FilenameFilter filter =
+                            // 인터페이스를 구현하는것 이므로 접근제어자를 publid으로 해주어야 한다.
+                            (dir, name) -> {
+
+                                File fileName = new File(dir.toURI());
+                                int namesLength = fileName.list().length;
+                                for (int i = 0; i < namesLength; i++) {
+
+                                }
+
+                                return false;
+                            }; // accept 메서드의 끝
+
+
+                    String[] fileList = new File(filepath).list(filter);
+
+
+                } else {
                     file.transferTo(upFile);
                 }
 
