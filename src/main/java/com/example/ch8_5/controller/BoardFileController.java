@@ -89,50 +89,10 @@ public class BoardFileController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public ResponseEntity<List<String>> uploadFile(MultipartFile[] files, @RequestParam("bno") String bno) {
         List<String> list = new ArrayList<>(); // 저장된 파일의 이름을 저장할 List
-        TreeSet set = new TreeSet();
 
         BoardFileDto boardFileDto = new BoardFileDto();
 
         try {
-            for (MultipartFile file : files) {
-
-                File upFile = new File(filepath, file.getOriginalFilename());
-                logger.info("<<<<<<<<<  filename : {} ", file.getOriginalFilename());
-                logger.info("<<<<<<<<<  fileSize : {} ", file.getSize());
-                logger.info("<<<<<<<<< filetype : {}", file.getContentType());
-
-
-                if (upFile.exists()) {
-                    System.out.println("data.getName() = " + upFile.getName());
-                    System.out.println("\"file already exist\" = " + "file already exist");
-                    // 1. 해당하는 이름의 파일 혹은 해당하는 이름의 파일의 복사본이 존재하는지를 확인
-                    // 2. 복사본이 존재하면 해당하는 파일명의 복사본파일들의 이름을 TreeSet에 저장
-                    // 3. TreeSet에 저장된 마지막 이름을 가지고 와서 복사본 뒤에 붙어있는 숫자에
-                    //    1을 더한 이름을 새로 업로드하는 파일의 이름으로 할당.
-                    File newFile = new File(filepath, "복사본" + file.getOriginalFilename());
-                    FileSystemUtils.copyRecursively(upFile, newFile);
-                    FilenameFilter filter =
-                            // 인터페이스를 구현하는것 이므로 접근제어자를 publid으로 해주어야 한다.
-                            (dir, name) -> {
-
-                                File fileName = new File(dir.toURI());
-                                int namesLength = fileName.list().length;
-                                for (int i = 0; i < namesLength; i++) {
-
-                                }
-
-                                return false;
-                            }; // accept 메서드의 끝
-
-
-                    String[] fileList = new File(filepath).list(filter);
-
-
-                } else {
-                    file.transferTo(upFile);
-                }
-
-            }
             return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
