@@ -28,7 +28,7 @@ public class BoardController {
 
     // 테스트 성공
     @RequestMapping(value = "/board", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> retrieveBoardList(@RequestParam Integer page, @RequestParam Integer pageSize, SearchCondition sc) {
+    public ResponseEntity<Map<String, Object>> retrieveBoardList(@RequestParam(required = false,defaultValue = "1") Integer page, @RequestParam(required = false,defaultValue = "10") Integer pageSize, SearchCondition sc) {
         Map<String, Object> map = null;
         List<BoardDto> list = null;
         PageHandler ph = null;
