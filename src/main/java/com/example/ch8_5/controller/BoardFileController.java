@@ -77,7 +77,8 @@ public class BoardFileController {
     }
 
     // 파일이 저장되는 디렉토리에 같은 이름의 파일이 있는지 확인하고
-    // 같은 이름의 파일이 있으면은 새롭게 저장하는 파일의 이름을
+    // 같은 이름의 파일이 있으면은 새롭게 저장하는 파일을 복사 해놓고
+    // 해당 파일의 이름을 변경한 다음에 upload 디렉토리에 저장한다.
     // 변경한 다음에 저장한다.
     // 같은 이름의 파일이 있으면은 해당 파일의 이름에 "복사본 이라는 단어가 있는지 확인"
     // 복사본 이라는 단어가 있으면은 "복사본1" 이렇게 뒤에 숫자가 붙어 있는 지를 확인하고
@@ -91,8 +92,26 @@ public class BoardFileController {
         List<String> list = new ArrayList<>(); // 저장된 파일의 이름을 저장할 List
 
         BoardFileDto boardFileDto = new BoardFileDto();
+        String filename = "";
+
 
         try {
+
+            for (MultipartFile file : files) {
+
+                System.out.println("filename = file.getName() = " + file.getName());
+                File existFile = new File(filepath, file.getOriginalFilename());
+                if (existFile.exists()){
+
+                    System.out.println("file already exist.");
+
+                }else{
+                    file.transferTo(existFile);
+                }
+
+            }
+
+
             return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
