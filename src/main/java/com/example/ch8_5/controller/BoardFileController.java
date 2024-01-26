@@ -81,6 +81,9 @@ public class BoardFileController {
     // 해당 파일의 이름을 변경한 다음에 upload 디렉토리에 저장한다.
     // 변경한 다음에 저장한다.
     // 같은 이름의 파일이 있으면은 해당 파일의 이름에 "복사본 이라는 단어가 있는지 확인"
+    // (이때 해당 파일의 임시파일을 다른 디렉토리 혹은 저장 가능한 곳에 저장해놓고
+    // 해당 파일의 이름을 변경한 다음에 다시 업로드 디렉토리로 가지고 온다.
+    // )
     // 복사본 이라는 단어가 있으면은 "복사본1" 이렇게 뒤에 숫자가 붙어 있는 지를 확인하고
     // 숫자가 붙어 있으면은 모든 이름들을 TreeSet에 넣어서 가장 마지막 이름을 가져와서
     // 마지막 이름의 숫자에 1을 더한 이름을 새로 저장하는 파일의 이름으로 설정한다.
@@ -104,6 +107,7 @@ public class BoardFileController {
                 if (existFile.exists()){
 
                     System.out.println("file already exist.");
+                    
 
                 }else{
                     file.transferTo(existFile);
