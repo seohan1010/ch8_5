@@ -33,7 +33,7 @@ public class BoardController {
         List<BoardDto> list = null;
         PageHandler ph = null;
 
-        // 페이지값과 페이지 사이즈 값이 null이면 아래의 로직을 실행
+        // 페이지값과 페이지 사이즈 값이 null이면 아래의 로직을 실행 ---> 위처럼 설정을 해준다면 아래의 코드 2줄은 필요가 없을수도 있을거 같다.
         if (page == null) page = 1;
         if (pageSize == null) pageSize = 10;
 
