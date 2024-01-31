@@ -19,12 +19,20 @@ public class SearchCondition {
         this.option = option;
     }
 
+    @Override
+    public String toString() {
+        return "SearchCondition{" +
+                "page=" + page +
+                ", pageSize=" + pageSize +
+                ", keyword='" + keyword + '\'' +
+                ", option='" + option + '\'' +
+                '}';
+    }
 
     // offset은 page를 계산한 결과를 넘겨주면은 된다.
     public Integer getOffset() {
         return (page - 1) * pageSize;
     }
-
 
 
     public Integer getPage() {
