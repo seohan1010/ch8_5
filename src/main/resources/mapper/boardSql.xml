@@ -64,7 +64,7 @@
                 and title like concat('%',#{keyword},'%')
             </when>
             <when test='option=="W"'>
-                and writer like concat('%',#{writer},'%')
+                and writer like concat('%',#{keyword},'%')
             </when>
 
             <otherwise>

@@ -60,7 +60,7 @@ public class BoardController {
     //테스트 성공
     @RequestMapping(value = "/search_board", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> retrieveBoardListBySearchCondition(@RequestBody SearchCondition sc) {
-
+        System.out.println("sc = " + sc);
         Map<String, Object> map = null;
         List<BoardDto> list = null;
         PageHandler ph = null;
