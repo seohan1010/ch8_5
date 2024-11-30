@@ -26,7 +26,7 @@ public class PageHandler {
         this.pageSize = pageSize;
 
         totalPage = (int) Math.ceil(totalCnt / (double) pageSize);
-        beginPage = (page - 1) / naviSize * naviSize + 1;
+        beginPage = ((page - 1) / naviSize) * naviSize + 1;
         endPage = Math.min(beginPage - 1 + naviSize, totalPage);
 
         showPrev = beginPage != 1;
