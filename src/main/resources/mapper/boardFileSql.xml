@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.ch8_5.mapper.BoardFileMapper">
+
+
+
+        <insert id="insetBoardFile" parameterType="boardFileDto">
+
+
+            insert into board_file(bno,
+                                   file_name,
+                                   file_path)
+            values (#{bno},
+                    #{fileName},
+                    #{filePath})
+
+        </insert>
+
+
+        <delete id="deleteBoardFile" parameterType="long">
+
+            update board_file
+            set deleted_yn = 'Y'
+            where file_no = #{fileNo}
+
+        </delete>
+
+
+    <select id="selectBoardFileNameList" parameterType="long" resultType="boardFileDto">
+
+        select file_no,
+               bno,
+               file_name,
+               file_path,
+               deleted_yn
+        from board_file
+        where bno = #{bno}
+
+
+    </select>
+
+
+
+</mapper>

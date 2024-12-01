@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.ch8_5.mapper.BoardMapper">
+
+    <!--    테스트 성공 -->
+    <delete id="deleteBoard">
+
+        delete
+        from board
+
+    </delete>
+
+    <!--    테스트 성공 -->
+    <insert id="insertBoard" parameterType="boardDto">
+
+        insert into board (title,
+                           writer,
+                           content,
+                           write_date)
+        values (#{title},
+                #{writer},
+                #{content},
+                now())
+
+    </insert>
+
+
+    <!--    테스트 성공 -->
+    <select id="selectBoardDetail" parameterType="long" resultType="boardDto">
+        select bno,
+               title,
+               writer,
+               content,
+               write_date,
+               update_date,
+               board_like,
+               view_cnt,
+               deleted_yn
+        from board
+        where bno = #{bno}
+    </select>
+
+    <sql id="select">
+
+        select bno,
+               title,
+               writer,
+               content,
+               write_date,
+               update_date,
+               board_like,
+               view_cnt,
+               deleted_yn
+        from board
+        where deleted_yn = 'N'
+
+    </sql>
+
+    <sql id="searchCondition">
+
+        <choose>
+            <when test='option=="T"'>
+                and title like concat('%',#{keyword},'%')
+            </when>
+            <when test='option=="W"'>
+                and writer like concat('%',#{keyword},'%')
+            </when>
+
+            <otherwise>
+                and (title like concat('%',#{keyword},'%')
+                or content like concat('%',#{keyword},'%') )
+            </otherwise>
+        </choose>
+
+    </sql>
+
+    <!--    테스트 성공 -->
+    <select id="selectBoardList" parameterType="searchCondition" resultType="boardDto">
+
+        <include refid="select"/>
+        order by bno desc
+        limit #{offset},#{pageSize}
+
+    </select>
+
+
+
+    <select id="selectBoardListBySearchCondition" parameterType="searchCondition" resultType="boardDto">
+
+        <include refid="select"/>
+        <include refid="searchCondition"/>
+        order by bno desc
+        limit #{offset},#{pageSize}
+    </select>
+
+
+    <!--    테스트 성공 -->
+    <update id="updateBoardDetail" parameterType="boardDto">
+
+        update board
+        set title=#{title},
+            content = #{content},
+            update_date=now()
+        where bno = #{bno}
+
+    </update>
+
+
+    <update id="updateViewCnt" parameterType="long">
+        update board
+        set view_cnt = view_cnt+1
+        where bno =#{bno}
+    </update>
+
+    <update id="updateBoardLike" parameterType="long">
+        update board
+        set board_like = board_like + 1
+        where bno = #{bno}
+    </update>
+
+
+    <!--    테스트 성공 -->
+    <update id="deleteBoardDetail" parameterType="long">
+
+        update board
+        set deleted_yn ='Y'
+        where bno = #{bno}
+
+    </update>
+
+
+    <select id="selectBoardCnt" resultType="long">
+        select count(*)
+        from board
+    </select>
+
+    <select id="selectBoardCntBySearchCondition" parameterType="searchCondition" resultType="long">
+
+        select count(*) from board
+        where deleted_yn ='N'
+        <include refid="searchCondition"/>
+
+
+    </select>
+
+</mapper>
