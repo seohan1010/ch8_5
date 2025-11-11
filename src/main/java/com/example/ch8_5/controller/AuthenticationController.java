@@ -8,7 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< HEAD
+@CrossOrigin(origins = {"http://localhost:3000", "*"})
+=======
 @CrossOrigin(origins = {"http://localhost:3001", "*"})
+>>>>>>> e24795dcb9434d887e33d17e3d09c64fda7d7988
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthenticationController {
