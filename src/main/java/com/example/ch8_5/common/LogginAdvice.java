@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogginAdvice {
 
-    @Around("execution(* com.example.ch8_5.controller.*.*(..))")
+    @Around("execution(* com.example.ch8_5.controller.*.*(..))") // pointcut(패턴, 어떤 메서드에 적용할지를 지정)
     public Object methodCallLog(ProceedingJoinPoint pjp)throws Throwable{
         long start =System.currentTimeMillis();
         System.out.println();
@@ -22,7 +22,7 @@ public class LogginAdvice {
 
 
 
-        Object result = pjp.proceed();
+        Object result = pjp.proceed(); // 타겟의 메서드를 호출 (Throwable 예외를 발생)
 
 
 //        System.out.println("result="+result);
