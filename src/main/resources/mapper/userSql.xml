@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.ch8_5.mapper.UserMapper">
+
+
+    <insert id="insertUser" parameterType="userDto">
+
+        insert into user_info(email,
+                              name,
+                              password,
+                              phone_number,
+                              birth_date,
+                              sns,
+                              gender)
+        values (#{email},
+                #{name},
+                #{password},
+                #{phoneNumber,jdbcType=VARCHAR},
+                #{birthDate,jdbcType=DATE},
+                #{sns,jdbcType=VARCHAR},
+                #{gender,jdbcType=VARCHAR})
+
+
+    </insert>
+
+
+    <select id="selectUser" parameterType="String" resultType="userDto">
+
+
+        select email         as email,
+               name          as name,
+               password      as password,
+               phone_number  as phoneNumber,
+               register_date as registerDate,
+               update_date   as updateDate,
+               birth_date    as birthDate,
+               sns           as sns,
+               gender        as gender
+        from user_info
+        where email = #{email}
+        and deleted_yn ='N'
+
+    </select>
+
+
+    <update id="updateUser" parameterType="userDto">
+
+        update user_info
+        set name         = #{name,jdbcType=VARCHAR},
+            password     = #{password,jdbcType=VARCHAR},
+            phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            update_date=#{updateDate,jdbcType = VARCHAR},
+            birth_date=#{birthDate,jdbcType = TIMESTAMP},
+            sns=#{sns,jdbcType=VARCHAR},
+            gender       = #{gender,jdbcType=VARCHAR},
+            deleted_yn   = #{deletedYn,jdbcType=VARCHAR}
+        where email = #{email}
+
+    </update>
+
+    <update id="deleteUser" parameterType="string">
+
+        update user_info
+        set deleted_yn = 'Y'
+        where email = #{email}
+
+    </update>
+
+</mapper>
